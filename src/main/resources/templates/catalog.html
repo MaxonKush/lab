@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Арендовать авто." />
+    <title>Каталог авто</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main/css/bootstrap.min.css" type="text/css">
+
+    <link rel="stylesheet" href="main/css/style.css">
+
+    <link rel="stylesheet" href="main/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="main/css/animate.css">
+
+    <link rel="stylesheet" href="main/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="main/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="main/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="main/css/aos.css">
+
+    <link rel="stylesheet" href="main/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="main/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="main/css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="main/css/flaticon.css">
+    <link rel="stylesheet" href="main/css/icomoon.css">
+</head>
+<body>
+
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">City<span>Car</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+
+            <div th:insert="blocks/header :: header"></div>
+
+
+            <div th:each="elem : ${users}" th:if="${#authentication.getName() == elem.username}" sec:authorize="hasAuthority('USER')" class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="/" class="nav-link">Главная</a></li>
+                    <li class="nav-item active"><a href="/catalog" class="nav-link">Каталог авто</a></li>
+
+                    <li th:each="elems : ${clients}" th:if="${elems.id_user_id} == ${elem.id}" class="nav-item"><a th:href="'client/edit/' + ${elems.id}" class="nav-link">Личный кабинет</a></li>
+
+                    <li class="nav-item"><a th:href="@{/logout}" class="nav-link" th:text="'Выйти (' + ${elem.username} + ')'"></a></li>
+
+                </ul>
+            </div>
+
+            <div sec:authorize="!isAuthenticated()" class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="/" class="nav-link">Главная</a></li>
+                    <li class="nav-item active"><a href="catalog" class="nav-link">Каталог авто</a></li>
+
+                    <li class="nav-item"><a href="/login" class="nav-link" th:text="Войти"></a></li>
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</div>
+
+    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('/main/images/bg_3.jpg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+                <div class="col-md-9 ftco-animate pb-5">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="/">Главная <i class="ion-ios-arrow-forward"></i></a></span> Каталог авто <i class="ion-ios-arrow-forward"></i></p>
+                    <h1 class="mb-3 bread">Выберите свою машину</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="ftco-section bg-light">
+        <div class="container">
+            <div class="row">
+                <!--{% for auto in catalog %}-->
+                <div th:each="el : ${autos}" class="col-md-4">
+
+                    <div class="car-wrap rounded ftco-animate">
+
+                        <img class="img rounded d-flex align-items-end" th:style="'background-image: url(../main/images/'+${el.photo}+'.jpg)'" />
+
+
+                        <!--<div class="text">
+                            <h2 class="mb-0" th:text="${el.brand}">&lt;!&ndash;<a href="{{ auto.get_absolute_url }}">{{ auto.brand }}</a>&ndash;&gt;</h2>
+                            <div th:if="${el.state} > 0" class="d-flex mb-3">
+                                <span th:text="${el.model} + ', ' + ${el.body_type} + ', ✓'" class="cat"><span class="ion-ios-checkmark"></span></span>
+                                <p th:text="${el.price_per_day} + ' Br/день'" class="price ml-auto"></p>
+
+                                &lt;!&ndash;<span th:text="${el.model} + ', ' + ${el.body_type}" class="cat"><span class="ion-ios-close"></span></span>
+                                <p th:text="${el.price_per_day} + ' Br/день'" class="price ml-auto"></p>&ndash;&gt;
+
+                            </div>
+
+                            <div th:if="${el.state} == 0" class="d-flex mb-3">
+                                <span th:text="${el.model} + ', ' + ${el.body_type} + ', ☓'" class="cat"><span class="ion-ios-close"></span></span>
+                                <p th:text="${el.price_per_day} + ' Br/день'" class="price ml-auto"></p>
+                            </div>
+
+                            &lt;!&ndash;<p class="d-flex mb-0 d-block"><a href="{{ auto.get_absolute_url }}" class="btn btn-secondary py-2 ml-1">Подробнее</a></p>&ndash;&gt;
+                            <p class="d-flex mb-0 d-block"><a th:href="'/catalog/' + ${el.id}" class="btn btn-secondary py-2 ml-1">Подробнее</a></p>
+                        </div>-->
+
+
+                        <div th:if="${el.state} != 0"  class="text">
+                            <h2 class="mb-0" th:text="${el.brand}"><!--<a href="{{ auto.get_absolute_url }}">{{ auto.brand }}</a>--></h2>
+                            <div class="d-flex mb-3">
+                                <span th:text="${el.model} + ', ' + ${el.body_type} + ', ✓'" class="cat"><span class="ion-ios-checkmark"></span></span>
+                                <p th:text="${el.price_per_day} + ' Br/день'" class="price ml-auto"></p>
+                            </div>
+                            <p class="d-flex mb-0 d-block"><a th:href="'/catalog/' + ${el.id}" class="btn btn-secondary py-2 ml-1">Подробнее</a></p>
+                        </div>
+
+                        <div th:if="${el.state} == 0" class="text">
+                            <h2 class="mb-0" th:text="${el.brand} + ' - авто недоступно!'"><!--<a href="{{ auto.get_absolute_url }}">{{ auto.brand }}</a>--></h2>
+                            <div class="d-flex mb-3">
+                                <span th:text="${el.model} + ', ' + ${el.body_type} + ', ☓'" class="cat"><span class="ion-ios-close"></span></span>
+                                <p th:text="${el.price_per_day} + ' Br/день'" class="price ml-auto"></p>
+                            </div>
+                            <p class="d-flex mb-0 d-block"><a th:href="'/catalog/' + ${el.id}" class="btn btn-secondary py-2 ml-1">Подробнее</a></p>
+                        </div>
+
+                    <!--</div>-->
+                    </div>
+
+                </div>
+                <!--{% endfor %}-->
+            </div>
+        </div>
+    </section>
+
+
+    <footer th:insert="blocks/footer :: footer"></footer>
+
+
+
+
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+
+    <script src="/main/js/jquery.min.js"></script>
+    <script src="/main/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/main/js/popper.min.js"></script>
+    <script src="/main/js/bootstrap.min.js"></script>
+    <script src="/main/js/jquery.easing.1.3.js"></script>
+    <script src="/main/js/jquery.waypoints.min.js"></script>
+    <script src="/main/js/jquery.stellar.min.js"></script>
+    <script src="/main/js/owl.carousel.min.js"></script>
+    <script src="/main/js/jquery.magnific-popup.min.js"></script>
+    <script src="/main/js/aos.js"></script>
+    <script src="/main/js/jquery.animateNumber.min.js"></script>
+    <script src="/main/js/bootstrap-datepicker.js"></script>
+    <script src="/main/js/jquery.timepicker.min.js"></script>
+    <script src="/main/js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="/main/js/google-map.js"></script>
+    <script src="/main/js/main.js"></script>
+
+</body>
+</html>

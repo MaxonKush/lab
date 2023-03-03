@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Список сервиса</title>
+
+    <link rel="stylesheet" href="../../main/css/tableStyle.css">
+</head>
+<body>
+
+<table width="100%" border="1" cellpadding="4" cellspacing="0" style="margin-bottom: 10px">
+<!--<table>-->
+    <caption style="margin-bottom: 5px">Авто <b>в ремонте</b></caption>
+    <!--<caption>Авто <b>в ремонте</b></caption>-->
+    <thead>
+    <tr>
+        <!--<th> Удалить </th>-->
+        <th> id </th>
+        <th> auto_id </th>
+        <th> road_accident_id </th>
+        <th> Дата начала ремонта </th>
+        <th> Дата окончания ремонта </th>
+        <th> Комментарий </th>
+        <th> Изменить </th>
+    </tr>
+    </thead>
+    <tbody th:each="elem : ${service}" align="center">
+
+    <tr th:if="${elem.date_of_end == null}">
+
+        <td th:text="${elem.id}"></td>
+        <td><a th:href="'/auto/' + ${elem.id_auto_id}" th:text="${elem.id_auto_id}"></a></td>
+        <td><a th:href="'/auto/road_accident/list'" th:text="${elem.id_road_accident_id}"></a></td>
+        <td th:text="${elem.date_of_start}"></td>
+        <td th:text="${elem.date_of_end}"></td>
+        <td th:text="${elem.repair_description}"></td>
+
+        <td> <a th:href="'/auto/service/edit/' + ${elem.id}" th:text="'изменить'"></a></td>
+        <!--<td> <a th:href="'/auto/service/edit/' + ${elem.id_auto_id}" th:text="'изменить'"></a></td>-->
+    </tr>
+
+    </tbody>
+</table>
+
+
+<table width="100%" border="1" cellpadding="4" cellspacing="0" style="margin-bottom: 10px">
+    <caption style="margin-bottom: 5px"><b>Отремонтированные</b> авто</caption>
+    <thead>
+    <tr>
+        <!--<th> Удалить </th>-->
+        <th> id </th>
+        <th> auto_id </th>
+        <th> road_accident_id </th>
+        <th> Дата начала ремонта </th>
+        <th> Дата окончания ремонта </th>
+        <th> Комментарий </th>
+        <th> Изменить </th>
+    </tr>
+    </thead>
+    <tbody th:each="elem : ${service}" align="center">
+
+    <tr th:if="${elem.date_of_end != null}">
+
+        <td th:text="${elem.id}"></td>
+        <td><a th:href="'/auto/' + ${elem.id_auto_id}" th:text="${elem.id_auto_id}"></a></td>
+        <td><a th:href="'/auto/road_accident/list'" th:text="${elem.id_road_accident_id}"></a></td>
+        <td th:text="${elem.date_of_start}"></td>
+        <td th:text="${elem.date_of_end}"></td>
+        <td th:text="${elem.repair_description}"></td>
+
+        <td> <a th:href="'/auto/service/edit/' + ${elem.id}" th:text="'изменить'"></a></td>
+        <!--<td> <a th:href="'/auto/service/edit/' + ${elem.id_auto_id}" th:text="'изменить'"></a></td>-->
+    </tr>
+
+    </tbody>
+</table>
+
+<div align="center" style="margin-top: 20px">
+    <!--<button style="vertical-align: middle; width: 90px; height: 30px;" onclick="location.href='/'" value="Назад">На Главную</button>-->
+    <button class="button" onclick="location.href='/'" value="Назад">На Главную</button>
+
+    <button class="button" onclick="location.href='../../catalog'" value="Назад">В Каталог</button>
+    <button class="button" onclick="location.href='../../auto'" value="Назад">Авто</button>
+    <button class="button" onclick="history.back();" value="Назад">Назад</button>
+</div>
+</body>
+</html>

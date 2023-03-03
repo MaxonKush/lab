@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" />
+    <title>Добавление сотрудника</title>
+    <link rel="stylesheet" href="../main/css/registerstyle.css">
+</head>
+<body>
+<form class="box" th:action="@{'/user/add'}" method="post">
+    <h1>Создать аккаунт</h1>
+
+    <p th:text="${errorUsername}"></p>
+    <p th:text="${errorEmail}"></p>
+
+    <div><input required placeholder="Логин" type="text" name="username"/></div>
+    <div><input required placeholder="Имя" type="text" name="first_name"/></div>
+    <div><input required placeholder="Фамилия" type="text" name="second_name"/></div>
+    <div><input required placeholder="Email" type="email" name="email"/></div>
+    <div><input required pattern="(?=.*\d)(?=.*[A-Za-z]).{8,}"
+                oninvalid="setCustomValidity('Пароль должен содержать:\nЛатинскую букву, цифру, минимум 8 симоволов')"
+                onchange="try{setCustomValidity('')}catch(e){}" placeholder="Пароль" type="password" name="password"/></div>
+    <!--<div><input required pattern="(?=.*\d)(?=.*[A-Za-z])(?=.*[A-Z]).{8,}" placeholder="Пароль" type="password" name="password"/></div>-->
+    <div><input required type="submit" value="Создать аккаунт"/></div>
+    <div><input required type="button" onclick="history.back();" value="Назад"/></div>
+
+</form>
+</body>
+</html>

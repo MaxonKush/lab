@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>Информация</title>
+    <!--<style>
+        h1 {
+            position: absolute;
+            top: 0%;
+            left: 2%;
+            color: white;
+        }
+        .my {
+            list-style-type: none;
+            text-align: center;
+            color: white;
+            transform: translate(-1.3%, 25%);
+            font-size: 25px;
+        }
+        .my2 {
+            color: white;
+            font-size: 25px;
+            position: absolute;
+            top: 14%;
+            left: 42%;
+            color: white;
+        }
+        .my3 {
+            color: white;
+            font-size: 25px;
+            position: absolute;
+            top: 18%;
+            left: 40%;
+            color: white;
+        }
+        span {
+            color: #01d28e;
+        }
+        .my1 {
+            color: #01d28e;
+        }
+        .p1 {
+            color: #01d28e;
+        }
+        .p2 {
+            padding: 5px;
+            color: white;
+            font-size: 25px;
+            position: absolute;
+            top: 80%;
+            left: 36.5%;
+        }
+        .rectangle {
+            width: 34%;
+            height: 850px;
+            border: 3px solid;
+            border-color: #01d28e;
+            border-radius: 90px;
+            margin: auto;
+            background: #191919;
+            position: absolute;
+            top: 10%;
+            left: 33%;
+        }
+        a:-webkit-any-link {
+            color: #3498db;
+        }
+            a:-webkit-any-link:hover {
+                color: orangered;
+            }
+    </style>-->
+
+    <link rel="stylesheet" href="../main/css/usersinglestyle.css">
+
+</head>
+<body>
+
+<div th:each="elem : ${user}">
+
+    <ul>
+        <form class="box" th:action="@{/user}" method="post">
+
+            <h1>Личные данные <span th:text="${user.username}"></span></h1>
+                    <!--<li class="my"><input placeholder="Имя пользователя" type="text" name="username"/></li>-->
+
+            <div class="field"><label>Ник: </label><input required placeholder="Ник" type="text" name="username" th:value="${user.username}"/></div>
+            <div class="field"><label>Активен: </label><input required min="0" max="1" placeholder="Активен" type="number" name="active" th:value="${user.active}"/></div>
+            <div class="field"><label>Имя: </label><input required placeholder="Имя" type="text" name="first_name" th:value="${user.first_name}"/></div>
+            <div class="field"><label>Фамилия: </label><input required placeholder="Фамилия" type="text" name="second_name" th:value="${user.second_name}"/></div>
+            <div class="field"><label>Почта: </label><input required placeholder="Почта" type="email" name="email" th:value="${user.email}"/></div>
+
+            <div class="field" th:each="role : ${roles}">
+                <label th:for="${role}" th:text="${role}"></label>
+                <input type="checkbox" th:checked="${#lists.contains(user.roles, role)}" th:name="${role}">
+            </div>
+
+                    <!--<select name="roles" th:field="*{roles}">
+                        <option th:each="roles : ${T(com.example.demo.models.Role).values()}"
+                                th:value="${roles}" th:text="${roles}"></option>
+                    </select>
+
+                    <input type="submit" value="Submit"/>-->
+
+                    <input type="hidden" th:value="${user.id}" username="userID" name="userId">
+
+            <div>
+                <input type="submit" value="Сохранить">
+                <li class="my"><input type="button" onclick="history.back();" value="Назад"/></li>
+            </div>
+
+        </form>
+                <!--<br /><br /><br /><br /><br /><br /><br />
+                <li class="my">Логин: <span th:text="${user.username}" class="my1"></span></li>
+                <li class="my">Роль: <span th:text="${user.roles}" class="my1"></span></li>
+                <li class="my">Имя: <span class="my1">{{ user.first_name }}</span></li>
+                <li class="my">Фамилия: <span class="my1">{{ user.last_name }}</span></li>
+                <li class="my">Отчество: <span class="my1">{{ user.profile.patronymic }}</span></li>
+                <li class="my">№ лиценции: <span class="my1">{{ user.profile.driver_license }}</span></li>
+                <li class="my">Опыт вождения (лет): <span class="my1">{{ user.profile.experience }}</span></li>
+                <li class="my">Email: <span class="my1">{{ user.email }}</span></li>
+                <li class="my">Телефон: <span class="my1">{{ user.profile.phone }}</span></li>
+                {% if user.profile.date_of_birth != None %}
+                <li class="my">Дата рождения: <span class="my1">{{ user.profile.date_of_birth }}</span></li>
+                {% else %}
+                <li class="my"><span class="my1">Вы не вводили дату рождения</span></li>
+                {% endif %}
+                {% if user.profile.address != None %}
+                <li class="my">Адрес: <span class="my1">{{ user.profile.address }}</span></li>
+                {% else %}
+                <li class="my"><span class="my1">Вы не вводили адрес</span></li>
+                {% endif %}-->
+    </ul>
+</div>
+
+</body>
+</html>

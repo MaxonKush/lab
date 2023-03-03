@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description"/>
+    <title>Логин</title>
+
+    <link rel="stylesheet" href="/main/css/loginstyle.css">
+
+</head>
+<body>
+
+    <form class="box" th:action="@{/login}" method="post">
+
+        <h1>Login</h1>
+
+        <div th:if="${param.error}">
+            <p>Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте еще раз.<br><br>
+            Возможно вы не зарегистрированы? Если у вас нет учетной записи <br><a href="/register">зарегистрируйтесь здесь</a></p>
+        </div>
+        <!--{% if form.errors %}-->
+        <!--<p>Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте еще раз.</p>
+        <p>Возможно вы не зарегистрированы? Если у вас нет учетной записи <br><a href="{% url 'register' %}">зарегистрируйтесь здесь</a></p>-->
+        <!--{% endif %}
+
+        {% if next %}
+        {% if user.is_authenticated %}
+        <p>
+            У вашей учетной записи нет доступа к этой странице. Чтобы продолжить, войдите в систему с учетной записью, которая имеет доступ.
+        </p>
+        {% else %}
+        <p>Пожалуйста, войдите, чтобы увидеть эту страницу.</p>
+        {% endif %}
+        {% endif %}
+        {% csrf_token %}
+
+        {{ form.username }}
+        {{ form.password }}-->
+            <div><input placeholder="Имя пользователя" type="text" name="username"/></div>
+            <div><input placeholder="Пароль" type="password" name="password"/></div>
+            <div><input type="submit" value="Войти"/></div>
+            <div><input type="button" onclick="document.location='/register'" value="Зарегистрироваться"/></div>
+            <div><input type="button" onclick="history.back();" value="Назад"/></div>
+
+        <!--<input type="submit" value="Войти" />
+        <input type="button" onclick="history.back();" value="Назад" />
+        <input type="hidden" name="next" value="{{ next }}" />
+
+        {# Assumes you setup the password_reset view in your URLconf #}
+        <p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
+        <p><a href="{% url 'register' %}">Вы не зарегистрированы?</a></p>-->
+    </form>
+
+</body>
+</html>

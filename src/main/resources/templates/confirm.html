@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>Личные данные</title>
+    <link rel="stylesheet" href="../../../main/css/confirmStyle.css">
+
+</head>
+<body>
+<ul>
+    <form th:each="elem : ${auto}" class="box" th:action="'/catalog/confirm/' + ${elem.id}" method="post">
+
+        <h1>Всё верно?</h1>
+
+        <div class="field"><input placeholder="id авто" required type="hidden" name="id_auto_id" th:value="${elem.id}"/></div>
+        <div class="field"><label>Марка: </label><input required placeholder="Марка" type="text" name="brand" th:value="${elem.brand}"/></div>
+        <div class="field"><label>Модель: </label><input required placeholder="Модель" type="text" name="model" th:value="${elem.model}"/></div>
+        <div class="field"><label>Номер: </label><input required placeholder="Номер" type="text" name="number" th:value="${elem.number}"/></div>
+
+
+        <!--<div th:each="test : ${users}" th:if="${#authentication.getName() == test.username}">
+
+            <div th:each="elements : ${client}"
+                 th:if="${elements.id_user_id} == ${test.id}"  class="field"><label>id клиента: </label><input autocomplete="off"
+                                                                 placeholder="id клиента" type="text" name="id"
+                                                                 th:value="${elements.id}" /></div>
+                                                                 &lt;!&ndash;th:value="${elements.id}" /></div>&ndash;&gt;
+
+        </div>-->
+
+        <div th:each="test : ${users}" th:if="${#authentication.getName() == test.username}">
+
+            <div th:each="elements : ${client}" th:if="${elements.id_user_id} == ${test.id}">
+
+                <div class="field"><input required autocomplete="off" type="hidden" name="id_client_id"
+                                                                     th:value="${elements.id}" /></div>
+
+                <div class="field"><label>Имя: </label><input required maxlength="30"
+                                                              type="text" name="first_name"
+                                                              placeholder="Имя" th:value="${elements.first_name}" /></div>
+
+                <div class="field"><label>Фамилия: </label><input required maxlength="30"
+                                                                  type="text" name="second_name"
+                                                                  placeholder="Фамилия" th:value="${elements.second_name}" /></div>
+
+                <div class="field"><label>Отчество: </label><input required maxlength="30"
+                                                                  type="text" name="patronymic"
+                                                                   placeholder="Отчество" th:value="${elements.patronymic}" /></div>
+
+                <div class="field"><label>Почта: </label><input required maxlength="50"
+                                                                type="email" name="email"
+                                                                placeholder="Почта" th:value="${elements.email}" /></div>
+
+                <div class="field"><label>Телефон: </label><input required minlength="9" maxlength="9"
+                                                                type="text" name="phone"
+                                                                placeholder="Телефон" th:value="${elements.phone}" /></div>
+
+                <div class="field"><label>Опыт вождения: </label><input required min="2" max="50"
+                                                                  type="number" name="experience"
+                                                                  placeholder="Опыт вождения" th:value="${elements.experience}" /></div>
+
+                <div class="field"><label>Серия паспорта: </label><input required minlength="2" maxlength="2"
+                                                                    type="text" name="series"
+                                                                    placeholder="Серия паспорта" th:value="${elements.series}" /></div>
+
+                <div class="field"><label>№ паспорта: </label><input required minlength="7" maxlength="7"
+                                                                     type="text" name="pass_number"
+                                                                     placeholder="№ паспорта" th:value="${elements.pass_number}" /></div>
+
+                <div class="field"><label>№ лицензии: </label><input required minlength="8" maxlength="8"
+                                                                     type="text" name="driver_license"
+                                                                     placeholder="№ лицензии" th:value="${elements.driver_license}" /></div>
+
+            </div>
+
+        </div>
+
+        <div>
+            <input type="submit" value="Заказать авто!">
+            <input type="button" onclick="history.back();" value="Назад" />
+        </div>
+
+    </form>
+</ul>
+</body>
+</html>

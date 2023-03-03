@@ -1,0 +1,416 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8" /> <!-- кодировка -->
+    <meta name="description" content="CityCar - Свобода движения" />
+    <title>CityCar</title>
+    <link rel="stylesheet" href="main/css/bootstrap.min.css" type="text/css">
+
+    <link rel="stylesheet" href="main/css/style.css">
+
+    <link rel="stylesheet" href="main/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="main/css/animate.css">
+
+    <link rel="stylesheet" href="main/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="main/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="main/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="main/css/aos.css">
+
+    <link rel="stylesheet" href="main/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="main/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="main/css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="main/css/flaticon.css">
+    <link rel="stylesheet" href="main/css/icomoon.css">
+
+</head>
+<body>
+
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">City<span>Car</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+
+
+            <div th:insert="blocks/header :: header"></div>
+
+
+            <div th:each="elem : ${users}" th:if="${#authentication.getName() == elem.username}" sec:authorize="hasAuthority('USER')" class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a href="/" class="nav-link">Главная</a></li>
+                    <li class="nav-item"><a href="catalog" class="nav-link">Каталог авто</a></li>
+
+                    <li th:each="elems : ${clients}" th:if="${elems.id_user_id} == ${elem.id}" class="nav-item"><a th:href="'client/edit/' + ${elems.id}" class="nav-link">Личный кабинет</a></li>
+
+                    <li class="nav-item"><a th:href="@{/logout}" class="nav-link" th:text="'Выйти (' + ${elem.username} + ')'"></a></li>
+
+                </ul>
+            </div>
+
+            <!--<div th:each="elem : ${clients}" sec:authorize="hasAuthority('USER')" class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a href="/" class="nav-link">Главная</a></li>
+                    <li class="nav-item"><a href="catalog" class="nav-link">Каталог авто</a></li>
+
+                    <li class="nav-item"><a th:href="'client/edit/' + ${elem.id}" class="nav-link">Личный кабинет</a></li>
+
+                    <li class="nav-item"><a th:each="elems : ${users}" th:href="@{/logout}" class="nav-link" th:text="'Выйти (' + ${elems.username} + ')'"></a></li>
+
+                </ul>
+            </div>-->
+
+            <div sec:authorize="!isAuthenticated()" class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a href="/" class="nav-link">Главная</a></li>
+                    <li class="nav-item"><a href="catalog" class="nav-link">Каталог авто</a></li>
+
+                    <li class="nav-item"><a href="/login" class="nav-link" th:text="Войти"></a></li>
+
+                </ul>
+            </div>
+
+
+            <!--<div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a href="/" class="nav-link">Главная</a></li>
+                    <li class="nav-item"><a href="catalog" class="nav-link">Каталог авто</a></li>
+
+                    &lt;!&ndash;<li sec:authorize="isAuthenticated()" class="nav-item"><a href="user" class="nav-link">Юзеры</a></li>&ndash;&gt;
+                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item"><a href="user" class="nav-link">[Юзеры</a></li>
+                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item"><a href="/auto" class="nav-link">Авто]</a></li>
+                    <li sec:authorize="hasAuthority('STAFF')" class="nav-item"><a href="/auto" class="nav-link">[Авто]</a></li>
+
+                    <li sec:authorize="!isAuthenticated()" class="nav-item"><a href="/login" class="nav-link" th:text="Войти"></a></li>
+
+
+                    <li sec:authorize="isAuthenticated()" class="nav-item"><a th:href="@{/logout}" class="nav-link" th:text="Выйти"></a></li>
+
+                </ul>
+            </div>-->
+
+
+
+
+
+
+            <!--<div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a href="/" class="nav-link">Главная</a></li>
+                    <li class="nav-item"><a href="catalog" class="nav-link">Каталог авто</a></li>
+
+                    &lt;!&ndash;<li sec:authorize="isAuthenticated()" class="nav-item"><a href="user" class="nav-link">Юзеры</a></li>&ndash;&gt;
+                    &lt;!&ndash;<li sec:authorize ="hasRole('ADMIN')" class="nav-item"><a href="user" class="nav-link">Юзеры</a></li>&ndash;&gt;
+
+
+
+                    &lt;!&ndash;{% if user.is_authenticated %}&ndash;&gt;
+                    &lt;!&ndash;<li class="nav-item"><a href="reg_log" class="nav-link">Личный кабинет</a></li>&ndash;&gt;
+                    &lt;!&ndash;{% if user.is_staff %}&ndash;&gt;
+                    &lt;!&ndash;<li class="nav-item"><a href="admin/" class="nav-link">Вход в рабочую панель</a></li>&ndash;&gt;
+                    &lt;!&ndash;{% else %}&ndash;&gt;
+                    &lt;!&ndash;{% endif %}&ndash;&gt;
+                    &lt;!&ndash;{% if user.is_superuser %}&ndash;&gt;
+                    &lt;!&ndash;<li class="nav-item"><a href="admin/" class="nav-link">Вход в админку</a></li>&ndash;&gt;
+                    &lt;!&ndash;{% else %}&ndash;&gt;
+                    &lt;!&ndash;{% endif %}&ndash;&gt;
+                    &lt;!&ndash;<li class="nav-item"><a href="accounts/logout/" class="nav-link">Выйти ({{ user.first_name }})</a></li>&ndash;&gt;
+                    &lt;!&ndash;{% else %}&ndash;&gt;
+                    <li sec:authorize="!isAuthenticated()" class="nav-item"><a href="/login" class="nav-link" th:text="Войти"></a></li>
+
+
+                    <li sec:authorize="isAuthenticated()" class="nav-item"><a th:href="@{/logout}" class="nav-link" th:text="Выйти"></a></li>
+
+                    &lt;!&ndash;<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" th:text="Выйти"></a>
+                        <form th:action="@{/logout}"  method="post">
+                            <input type="submit" value="Выйти"/>
+                        </form>
+                    </li>&ndash;&gt;
+
+                    &lt;!&ndash;<li class="nav-item" sec:authorize="isAuthenticated()" >
+
+                        <form class="nav-link"  th:action="@{/logout}" method="post">
+                            <input type="submit" value="Выйти"/>
+                        </form>
+                    </li>
+
+                    <form class="nav-link" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+                        <input type="submit" value="Выйти"/>
+                    </form>&ndash;&gt;
+
+
+                    &lt;!&ndash;<li sec:authorize="isAuthenticated()" class="nav-item" >
+                        <a class="nav-link" >
+                            <form th:action="@{/logout}" method="post">
+                                <input type="submit" value="Выйти"/>
+                            </form>
+                        </a>
+                    </li>&ndash;&gt;
+
+
+                    &lt;!&ndash;<li class="nav-item" sec:authorize="isAuthenticated()">
+
+                        <a th:href="@{/logout}" class="nav-link" th:text="Выйти"></a>
+
+
+                        &lt;!&ndash;<form class="nav-link" th:action="@{/logout}" method="post">
+                            <input type="submit" value="Выйти"/>
+                        </form>&ndash;&gt;
+                    </li>&ndash;&gt;
+
+
+                    &lt;!&ndash;{% endif %}&ndash;&gt;
+                </ul>
+            </div>-->
+
+        </div>
+    </nav>
+</div>
+
+    <div class="hero-wrap ftco-degree-bg" style="background-image: url('/main/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
+                <div class="col-lg-8 ftco-animate">
+                    <div class="text w-100 text-center mb-md-5 pb-md-5">
+                        <h1 class="mb-4">Быстрый и лёгкий способ аренды автомобиля</h1>
+                        <p style="font-size: 18px;"></p>
+                        <a href="https://www.youtube.com/watch?v=JaT0dlnKzLQ" class="icon-wrap popup-vimeo d-flex align-items-center mt-4 justify-content-center">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="ion-ios-play"></span>
+                            </div>
+                            <div class="heading-title ml-5">
+                                <span>Простые шаги для аренды авто</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="ftco-section ftco-no-pt bg-light">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-md-12	featured-top">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 d-flex align-items-center">
+                        </div>
+                        <div class="col-md-8 d-flex align-items-center">
+                            <div class="services-wrap rounded-right w-100">
+                                <h3 class="heading-section mb-4">Лучший способ аренды автомобиля! 3 простых шага</h3>
+                                <div class="row d-flex mb-4">
+                                    <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+                                        <div class="services w-100 text-center">
+                                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-rent"></span></div>
+                                            <div class="text w-100">
+                                                <h3 class="heading mb-2">Забронируйте свой прокатный автомобиль</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+                                        <div class="services w-100 text-center">
+                                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
+                                            <div class="text w-100">
+                                                <h3 class="heading mb-2">Приезжайте к нам</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+                                        <div class="services w-100 text-center">
+                                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-handshake"></span></div>
+                                            <div class="text w-100">
+                                                <h3 class="heading mb-2">Завершите сделку</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p><a href="catalog" class="btn btn-primary py-3 px-4">Забронируйте своё авто</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section ftco-no-pt bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+                    <span class="subheading">ЧТО МЫ ПРЕДЛАГАЕМ</span>
+                    <h2 class="mb-2">Наши доступные автомобили</h2>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="carousel-car owl-carousel">
+                        <div th:each="el : ${autos}" th:if="${el.state} != 0" class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <img class="img rounded d-flex align-items-end" th:style="'background-image: url(../main/images/'+${el.photo}+'.jpg)'" />
+                                <div class="text">
+                                    <h2 th:text="${el.brand}" class="mb-0"></h2>
+                                    <div class="d-flex mb-3">
+                                        <span th:text="${el.model} + ', ' + ${el.body_type}" class="cat"></span>
+                                        <p th:text="${el.price_per_day} + ' Br/день'" class="price ml-auto"></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a th:href="'/catalog/' + ${el.id}" class="btn btn-secondary py-2 ml-1">Подробнее</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="col-md-12">
+                    <div class="carousel-car owl-carousel">
+                        &lt;!&ndash;#####################################################################################################################&ndash;&gt;
+                        <div th:each="el : ${autos}" th:if="${el.state} != 0" class="item">
+                            <div class="car-wrap rounded ftco-animate">
+
+                                <img class="img rounded d-flex align-items-end" th:style="'background-image: url(../main/images/'+${el.photo}+'.jpg)'" />
+                                &lt;!&ndash;<div class="img rounded d-flex align-items-end" style="background-image: url('{{ auto.foto.url }}');">&ndash;&gt;
+                                </div>
+                                <div class="text">
+                                    <h2 th:text="${el.brand}" class="mb-0"><a href="{{ auto.get_absolute_url }}"></a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span th:text="${el.model} + ', ' + ${el.body_type}" class="cat"></span>
+                                        <p th:text="${el.price_per_day} + ' Br/день'" class="price ml-auto"></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a th:href="'/catalog/' + ${el.id}" class="btn btn-secondary py-2 ml-1">Подробнее</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                <!--</div>-->
+                
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="ftco-section ftco-about">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-md-6 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/main/images/about.jpg');">
+                </div>
+                <div class="col-md-6 wrap-about ftco-animate">
+                    <div class="heading-section heading-section-white pl-md-5">
+                        <span class="subheading">О Нас</span>
+                        <h2 class="mb-4">Добро пожаловать на CityCar</h2>
+                        <p>Современный быстрый темп жизни и стремительный рост населения привели к тому, что количество личных автомобилей за последние годы существенно увеличилось.</p>
+                        <p>Однако, очень часто бывают ситуации, когда люди не могут воспользоваться собственным автомобилем: некоторые не имеют личных авто, машина может быть в ремонте или человек отправился в другой город на самолете или поезде, а по приезде ему требуется легковой автомобиль без водителя для передвижения по городу, поэтому особенно востребован и пользуется популярностью прокат легковых автомобилей. Крупные города часто принимают людей, ограниченных во времени, и арендованный автомобиль позволяет им успеть сделать все необходимые дела и посетить запланированные места.</p>
+                        <p><a href="catalog" class="btn btn-primary py-3 px-4">Выбрать авто</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="reviews" class="ftco-section testimony-section bg-light">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-7 text-center heading-section ftco-animate">
+                    <span class="subheading">Отзывы</span>
+                    <h2 class="mb-3">Счастливые Клиенты</h2>
+                </div>
+            </div>
+            <div class="row ftco-animate">
+                <div class="col-md-12">
+                    <div class="carousel-testimony owl-carousel ftco-owl">
+                        <div class="item">
+                            <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                <div class="user-img mb-2" style="background-image: url('/main/images/person_10.jpg')">
+                                </div>
+                                <div class="text pt-4">
+                                    <p class="mb-4">Сервис высокого качества, быстрое оформление, надёжные автомобили</p>
+                                    <p class="name">Всеволод Демченко</p>
+                                    <span class="position">Системный администратор</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                <div class="user-img mb-2" style="background-image: url('/main/images/person_12.jpg')">
+                                </div>
+                                <div class="text pt-4">
+                                    <p class="mb-4">Приятные цены, отличные менеджеры, что ещё нужно?</p>
+                                    <p class="name">Никита Кухарский</p>
+                                    <span class="position">Дизайнер, разработчик игр</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                <div class="user-img mb-2" style="background-image: url('/main/images/person_13.jpg')">
+                                </div>
+                                <div class="text pt-4">
+                                    <p class="mb-4">Классный сервис! Очень помог в нужный момент</p>
+                                    <p class="name">Владислав Дановский</p>
+                                    <span class="position">Веб-разработчик</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                <div class="user-img mb-2" style="background-image: url('/main/images/person_5.jpg')">
+                                </div>
+                                <div class="text pt-4">
+                                    <p class="mb-4">11/10!<br>Всем советую</p>
+                                    <p class="name">Артём Савченко</p>
+                                    <span class="position">Сантехник</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                <div class="user-img mb-2" style="background-image: url('/main/images/person_4.jpg')">
+                                </div>
+                                <div class="text pt-4">
+                                    <p class="mb-4">Прекрасный персонал, всё быстро, чётко, очень понравилось!</p>
+                                    <p class="name">Герман Волчёк</p>
+                                    <span class="position">Менеджер по продажам</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<footer th:insert="blocks/footer :: footer"></footer>
+
+
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+
+    <script src="/main/js/jquery.min.js"></script>
+    <script src="/main/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/main/js/popper.min.js"></script>
+    <script src="/main/js/bootstrap.min.js"></script>
+    <script src="/main/js/jquery.easing.1.3.js"></script>
+    <script src="/main/js/jquery.waypoints.min.js"></script>
+    <script src="/main/js/jquery.stellar.min.js"></script>
+    <script src="/main/js/owl.carousel.min.js"></script>
+    <script src="/main/js/jquery.magnific-popup.min.js"></script>
+    <script src="/main/js/aos.js"></script>
+    <script src="/main/js/jquery.animateNumber.min.js"></script>
+    <script src="/main/js/bootstrap-datepicker.js"></script>
+    <script src="/main/js/jquery.timepicker.min.js"></script>
+    <script src="/main/js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="/main/js/google-map.js"></script>
+    <script src="/main/js/main.js"></script>
+    
+</body>
+</html>

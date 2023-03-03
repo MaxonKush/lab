@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Авто</title>
+
+    <link rel="stylesheet" href="../../main/css/tableStyle.css">
+</head>
+<body>
+<table width="100%" border="1" cellpadding="2" cellspacing="0" style="margin-bottom: 10px">
+<caption style="margin-bottom: 5px">Таблица <b>доступных</b> автомобилей</caption>
+    <thead>
+    <tr>
+        <th> Del </th>
+        <th> id </th>
+        <th> Марка </th>
+        <th> Модель </th>
+        <th> Номер </th>
+        <th> Тип кузова </th>
+        <th> Цвет </th>
+        <th> Объём двигателя (л.) </th>
+        <th> Тип КП </th>
+        <th> Расход (на 100 км.) </th>
+        <th> Цена в день (Br) </th>
+        <!--<th> Доступна </th>-->
+        <th> Запас хода (км.) </th>
+        <th> Места </th>
+        <th> Багажник (л.) </th>
+        <th> Топливо </th>
+        <th> Мощность (л.с.) </th>
+        <th> edit </th>
+        <th> ДТП </th>
+        <th> Сервис </th>
+        <th> Ссылка </th>
+    </tr>
+    </thead>
+    <tbody th:each="elem : ${autos}">
+    <!--<tr th:if="${elem.roles == 'USER'}">-->
+    <tr th:if="${elem.state != 0}">
+
+        <td align="center">
+            <form th:action="'/auto/' + ${elem.id} + '/remove'" method="post">
+                <button style="vertical-align: middle; width: 20px; height: 20px;" type="submit">☓</button>
+            </form>
+        </td>
+
+        <td align="center" th:text="${elem.id}"></td>
+        <td align="center" th:text="${elem.brand}"></td>
+        <td align="center" th:text="${elem.model}"></td>
+        <td align="center" th:text="${elem.number}"></td>
+        <td align="center" th:text="${elem.body_type}"></td>
+        <td align="center" th:text="${elem.color}"></td>
+        <td align="center" th:text="${elem.engine}"></td>
+        <td align="center" th:text="${elem.transmission}"></td>
+        <td align="center" th:text="${elem.consumption_per_100}"></td>
+        <td align="center" th:text="${elem.price_per_day}"></td>
+        <!--<td align="center" th:text="'true'"></td>-->
+        <td align="center" th:text="${elem.reserve}"></td>
+        <td align="center" th:text="${elem.places}"></td>
+        <td align="center" th:text="${elem.capacity}"></td>
+        <td align="center" th:text="${elem.fuel}"></td>
+        <td align="center" th:text="${elem.power}"></td>
+
+        <td align="center"> <a th:href="'../auto/' + ${elem.id}" th:text="'изменить'"></a></td>
+
+
+        <!--<td align="center"> <a th:href="'../auto/road_accident'" th:text="'аварии'"></a></td>-->
+        <td align="center"> <a th:href="'../auto/road_accident/' + ${elem.id}" th:text="'ДТП'"></a></td>
+        <td align="center"> <a th:href="'../auto/service/' + ${elem.id}" th:text="'Сервис'"></a></td>
+
+
+        <td align="center"> <a th:href="'../catalog/' + ${elem.id}" th:text="'каталог'"></a></td>
+
+    </tr>
+    </tbody>
+</table>
+
+<table width="100%" border="1" cellpadding="2" cellspacing="0" style="margin-bottom: 10px">
+    <caption style="margin-bottom: 5px">Таблица <b>недоступных</b> автомобилей</caption>
+    <thead>
+    <tr>
+        <th> Del </th>
+        <th> id </th>
+        <th> Марка </th>
+        <th> Модель </th>
+        <th> Номер </th>
+        <th> Тип кузова </th>
+        <th> Цвет </th>
+        <th> Объём двигателя (л.) </th>
+        <th> Тип КП </th>
+        <th> Расход (на 100 км.) </th>
+        <th> Цена в день (Br) </th>
+        <!--<th> Доступна </th>-->
+        <th> Запас хода (км.) </th>
+        <th> Места </th>
+        <th> Багажник (л.) </th>
+        <th> Топливо </th>
+        <th> Мощность (л.с.) </th>
+        <th> edit </th>
+        <th> ДТП </th>
+        <th> Сервис </th>
+        <th> Ссылка </th>
+    </tr>
+    </thead>
+    <tbody th:each="elem : ${autos}">
+    <!--<tr th:if="${elem.roles == 'USER'}">-->
+    <tr th:if="${elem.state == 0}">
+
+        <td align="center">
+            <form th:action="'/auto/' + ${elem.id} + '/remove'" method="post">
+                <button style="vertical-align: middle; width: 20px; height: 20px;" type="submit">☓</button>
+            </form>
+        </td>
+
+        <td align="center" th:text="${elem.id}"></td>
+        <td align="center" th:text="${elem.brand}"></td>
+        <td align="center" th:text="${elem.model}"></td>
+        <td align="center" th:text="${elem.number}"></td>
+        <td align="center" th:text="${elem.body_type}"></td>
+        <td align="center" th:text="${elem.color}"></td>
+        <td align="center" th:text="${elem.engine}"></td>
+        <td align="center" th:text="${elem.transmission}"></td>
+        <td align="center" th:text="${elem.consumption_per_100}"></td>
+        <td align="center" th:text="${elem.price_per_day}"></td>
+        <!--<td align="center" th:text="'false'"></td>-->
+        <td align="center" th:text="${elem.reserve}"></td>
+        <td align="center" th:text="${elem.places}"></td>
+        <td align="center" th:text="${elem.capacity}"></td>
+        <td align="center" th:text="${elem.fuel}"></td>
+        <td align="center" th:text="${elem.power}"></td>
+
+        <td align="center"> <a th:href="'../auto/' + ${elem.id}" th:text="'изменить'"></a></td>
+
+        <!--<td align="center"> <a th:href="'../auto/road_accident'" th:text="'аварии'"></a></td>-->
+        <td align="center"> <a th:href="'../auto/road_accident/' + ${elem.id}" th:text="'ДТП'"></a></td>
+        <td align="center"> <a th:href="'../auto/service/' + ${elem.id}" th:text="'Сервис'"></a></td>
+
+        <td align="center"> <a th:href="'../catalog/' + ${elem.id}" th:text="'каталог'"></a></td>
+
+    </tr>
+    </tbody>
+</table>
+
+<div align="center" style="margin-top: 20px">
+    <button class="button" onclick="location.href='/'" value="Назад">На Главную</button>
+    <button class="button" onclick="location.href='../catalog'" value="Назад">В Каталог</button>
+    <button class="button" onclick="location.href='/auto/add'" value="Назад">Добавить авто</button>
+    <button class="button" onclick="location.href='/auto/road_accident/list'" value="Назад">Аварии</button>
+    <button class="button" onclick="location.href='/auto/confirm/list'" value="Назад">Аренды</button>
+    <button class="button" onclick="location.href='/auto/service/list'" value="Назад">Сервис</button>
+    <button sec:authorize="hasAuthority('ADMIN')" class="button" onclick="location.href='../user'" value="Назад">Юзеры</button>
+    <button class="button" onclick="history.back();" value="Назад">Назад</button>
+</div>
+</body>
+</html>

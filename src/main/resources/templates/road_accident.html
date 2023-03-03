@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" />
+    <title>ДТП</title>
+    <link rel="stylesheet" href="../../main/css/usersinglestyle.css">
+</head>
+<body>
+<form th:each="elem : ${auto}" class="box" th:action="${'/auto/road_accident/' + elem.id}" method="post">
+    <h1>Добавить ДТП</h1>
+
+    <!--<p th:text="${errorUsername}"></p>
+    <p th:text="${errorEmail}"></p>-->
+
+    <div><input required placeholder="id авто" type="hidden" name="id_auto_id" th:value="${elem.id}"/></div>
+    <div><input required placeholder="Дата ДТП" type="date" name="date_road_accident"/></div>
+    <div><input required placeholder="Дефекты" type="text" name="defect"/></div>
+
+    <div><input type="submit" value="Добавить в БД"/></div>
+    <div><input type="button" onclick="history.back();" value="Назад"/></div>
+
+</form>
+</body>
+</html>
