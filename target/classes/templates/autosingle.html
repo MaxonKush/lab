@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8" />
+    <title>Изменение авто</title>
+
+    <link rel="stylesheet" href="../main/css/autosinglestyle.css">
+
+</head>
+
+<body th:each="elem : ${auto}" th:style="'background-image: url(../main/images/'+${elem.brand}+'_'+${elem.number}+'.jpg)'">
+
+<div th:each="elem : ${auto}">
+
+        <ul>
+            <form class="box" th:action="${'/auto/' + elem.id}" method="post">
+                <h1>Информация об авто <span th:text="${elem.brand + ' (' + elem.number + ')'}"></span></h1>
+
+                <div class="field"><label>Марка: </label><input required placeholder="Марка" type="text" name="brand" list="brandname" th:value="${elem.brand}"/>
+                    <datalist id="brandname">
+                        <option value="Audi">
+                        <option value="BMW">
+                        <option value="Citroen">
+                        <option value="Ford">
+                        <option value="Honda">
+                        <option value="Hyundai">
+                        <option value="Infiniti">
+                        <option value="Kia">
+                        <option value="Land Rover">
+                        <option value="Lexus">
+                        <option value="Mazda">
+                        <option value="Mercedes-Benz">
+                        <option value="Mitsubishi">
+                        <option value="Nissan">
+                        <option value="Opel">
+                        <option value="Peugeot">
+                        <option value="Porsche">
+                        <option value="Renault">
+                        <option value="Skoda">
+                        <option value="Toyota">
+                        <option value="Volkswagen">
+                        <option value="Volvo">
+                        <option value="LADA">
+                    </datalist>
+                </div>
+                <div class="field"><label>Модель: </label><input required placeholder="Модель" type="text" name="model" th:value="${elem.model}"/></div>
+                <div class="field"><label>Тип кузова: </label><input required placeholder="Тип кузова" type="text" name="body_type" list="body_typename" th:value="${elem.body_type}"/>
+                    <datalist id="body_typename">
+                        <option value="Купе">
+                        <option value="Седан">
+                        <option value="Внедорожник">
+                        <option value="Хэтчбек">
+                        <option value="Лифтбек">
+                        <option value="Универсал">
+                        <option value="Кабриолет">
+                    </datalist>
+                </div>
+                <div class="field"><label>Цвет: </label><input required placeholder="Цвет" type="text" name="color" list="colorname" th:value="${elem.color}"/>
+                    <datalist id="colorname">
+                        <option value="Серый">
+                        <option value="Красный">
+                        <option value="Белый">
+                        <option value="Чёрный">
+                        <option value="Зелёный">
+                        <option value="Синий">
+                        <option value="Жёлтый">
+                        <option value="Оранжевый">
+                        <option value="Фиолетовый">
+                        <option value="Коричневый">
+                    </datalist>
+                </div>
+                <div class="field"><label>Тип КП: </label><input required placeholder="Тип КП" type="text" name="transmission" list="transmissionname" th:value="${elem.transmission}"/>
+                    <datalist id="transmissionname">
+                        <option value="МКПП">
+                        <option value="АКПП">
+                    </datalist>
+                </div>
+                <div class="field"><label>Топливо: </label><input required placeholder="Топливо" type="text" name="fuel" list="fuelname" th:value="${elem.fuel}"/>
+                    <datalist id="fuelname">
+                        <option value="Бензин">
+                        <option value="Дизель">
+                        <option value="Гибрид">
+                        <option value="Электро">
+                    </datalist>
+                </div>
+                <div class="field"><label>Фото: </label><input required placeholder="Фото" type="text" name="photo" th:value="${elem.photo}"/></div>
+                <div class="field"><label>Номер: </label><input required minlength="7" maxlength="7" placeholder="Номер" type="text" name="number" th:value="${elem.number}"/></div>
+
+                <div class="field"><label>Объём двигателя (л.): </label><input required min="0" max="20" step="0.1" placeholder="Объём двигателя (л.)" type="number" name="engine" th:value="${elem.engine}"/></div>
+                <div class="field"><label>Расход (на 100 км.): </label><input required min="0" max="100" step="0.1" placeholder="Расход (на 100 км.)" type="number" name="consumption_per_100" th:value="${elem.consumption_per_100}"/></div>
+                <div class="field"><label>Цена в день (Br): </label><input required min="0" step="0.01" placeholder="Цена в день (Br)" type="number" name="price_per_day" th:value="${elem.price_per_day}"/></div>
+                <div class="field"><label>Кол-во мест: </label><input required min="0" max="7" placeholder="Кол-во мест" type="number" name="places" th:value="${elem.places}"/></div>
+                <div class="field"><label>Запас хода (км.): </label><input required min="0" max="2000" placeholder="Запас хода (км.)" type="number" name="reserve" th:value="${elem.reserve}"/></div>
+                <div class="field"><label>Мощность (л.с.): </label><input required min="0" max="1000" placeholder="Мощность (л.с.)" type="number" name="power" th:value="${elem.power}"/></div>
+                <div class="field"><label>Багажник (л.): </label><input required min="0" max="1000" placeholder="Багажник (л.)" type="number" name="capacity" th:value="${elem.capacity}"/></div>
+                <div class="field"><label>Доступна: </label><input required min="0" max="1"  placeholder="Доступна" type="number" name="state" th:value="${elem.state}"/></div>
+
+                <div><input type="submit" value="Сохранить"></div>
+                <li class="my"><input type="button" onclick="history.back();" value="Назад"/></li>
+
+            </form>
+
+
+            <!--<form class="my2" th:action="${'/auto/' + elem.id}" method="post">
+
+                <p class="my">Личные данные <span th:text="${elem.brand}"></span></p>
+                &lt;!&ndash;<li class="my"><input placeholder="Имя пользователя" type="text" name="username"/></li>&ndash;&gt;
+
+                <li class="my"><label class="label"><input type="text" name="brand" th:value="${elem.brand}"/>Марка</label></li>
+                <li class="my"><label class="label"><input type="text" name="model" th:value="${elem.model}"/>Модель</label></li>
+                <li class="my"><label class="label"><input type="text" name="body_type" th:value="${elem.body_type}"/>Тип кузова</label></li>
+                <li class="my"><label class="label"><input type="text" name="color" th:value="${elem.color}"/>Цвет</label></li>
+                <li class="my"><label class="label"><input type="text" name="transmission" th:value="${elem.transmission}"/>Тип КП</label></li>
+                <li class="my"><label class="label"><input type="text" name="fuel" th:value="${elem.fuel}"/>Топливо</label></li>
+                <li class="my"><label class="label"><input type="text" name="photo" th:value="${elem.photo}"/>Фото</label></li>
+                <li class="my"><label class="label"><input type="number" name="engine" th:value="${elem.engine}"/>Объём двигателя (л.)</label></li>
+                <li class="my"><label class="label"><input type="number" name="consumption_per_100" th:value="${elem.consumption_per_100}"/>Расход (на 100 км.)</label></li>
+                <li class="my"><label class="label"><input type="number" name="price_per_day" th:value="${elem.price_per_day}"/>Цена в день (Br)</label></li>
+                <li class="my"><label class="label"><input type="text" name="number" th:value="${elem.number}"/>Номер</label></li>
+                <li class="my"><label class="label"><input type="number" name="places" th:value="${elem.places}"/>Места</label></li>
+                <li class="my"><label class="label"><input type="number" name="reserve" th:value="${elem.reserve}"/>Запас хода (км.)</label></li>
+                <li class="my"><label class="label"><input type="number" name="power" th:value="${elem.power}"/>Мощность (л.с.)</label></li>
+                <li class="my"><label class="label"><input type="number" name="capacity" th:value="${elem.capacity}"/>Багажник (л.)</label></li>
+                <li class="my"><label class="label"><input type="number" name="state" th:value="${elem.state}"/>Доступна</label></li>
+
+                &lt;!&ndash;<div option th:each="roless : ${T(com.example.demo.models.Role).values()}">
+                    <label><input type="checkbox" th:value="${roless}" th:text="${roless}" ${user.roles?seq_contains(user.roles)?string("checked", "")} /></label>
+                </div>&ndash;&gt;
+
+                &lt;!&ndash;<div th:each="roless : ${T(com.example.demo.models.Role).values()}">
+                    <label>
+                        <input type="checkbox" th:value="${roless}" th:checked="${#lists.contains(user.roles, roless)}"
+                               th:text="${roless}">
+                    </label>
+                </div>&ndash;&gt;
+
+                &lt;!&ndash;<div th:each="role : ${roles}">
+                    <label th:for="${role}" th:text="${role}"></label>
+                    <input type="checkbox" th:checked="${#lists.contains(user.roles, role)}" th:name="${role}">
+                </div>
+
+
+                <input type="hidden" th:value="${user.id}" username="userID" name="userId">&ndash;&gt;
+
+                <br /><br />
+                <button type="submit">Сохранить</button>
+                <li class="my"><input type="button" onclick="history.back();" value="Назад"/></li>
+
+            </form>-->
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

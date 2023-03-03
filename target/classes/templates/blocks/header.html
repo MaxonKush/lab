@@ -1,0 +1,30 @@
+<div th:fragment="header">
+    <div sec:authorize="hasAuthority('ADMIN')" class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a href="/" class="nav-link">Главная</a></li>
+            <li class="nav-item"><a href="catalog" class="nav-link">Каталог авто</a></li>
+
+            <!--<li sec:authorize="isAuthenticated()" class="nav-item"><a href="user" class="nav-link">Юзеры</a></li>-->
+            <li class="nav-item active"><a href="/user" class="nav-link">Юзеры</a></li>
+            <li class="nav-item active"><a href="/auto" class="nav-link">Авто</a></li>
+
+            <li sec:authorize="!isAuthenticated()" class="nav-item"><a href="/login" class="nav-link" th:text="Войти"></a></li>
+
+
+            <li sec:authorize="isAuthenticated()" class="nav-item"><a th:href="@{/logout}" class="nav-link" th:text="Выйти"></a></li>
+
+        </ul>
+    </div>
+
+    <div sec:authorize="hasAuthority('STAFF')" class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a href="/" class="nav-link">Главная</a></li>
+            <li class="nav-item"><a href="catalog" class="nav-link">Каталог авто</a></li>
+
+            <li class="nav-item active"><a href="/auto" class="nav-link">Авто</a></li>
+
+            <li class="nav-item"><a th:href="@{/logout}" class="nav-link" th:text="Выйти"></a></li>
+
+        </ul>
+    </div>
+</div>

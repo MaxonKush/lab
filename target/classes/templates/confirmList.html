@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Список Аренд</title>
+
+    <link rel="stylesheet" href="../../main/css/tableStyle.css">
+</head>
+<body>
+<table width="100%" border="1" cellpadding="4" cellspacing="0" style="margin-bottom: 10px">
+    <caption style="margin-bottom: 5px"><b>Таблица активных Аренд</b></caption>
+    <thead>
+    <tr>
+        <!--<th> Удалить </th>-->
+        <th> id </th>
+        <th> auto_id </th>
+        <th> client_id </th>
+        <th> Имя </th>
+        <th> Фамилия </th>
+        <th> Отчество </th>
+        <th> Телефон </th>
+        <th> № Лицензии </th>
+        <th> Почта </th>
+        <th> Серия паспорта </th>
+        <th> № паспорта </th>
+        <th> Марка </th>
+        <th> Модель </th>
+        <th> Номер </th>
+        <th> Опыт вождения </th>
+        <th> Завершить </th>
+    </tr>
+    </thead>
+    <tbody th:each="elem : ${confirm}" align="center">
+    <tr th:each="elements : ${autos}" th:if="${elem.id_auto_id == elements.id}">
+        <td th:text="${elem.id}"></td>
+        <!--<td th:text="${elem.id_auto_id}"></td>-->
+        <td><a th:href="'../../auto'" th:text="${elem.id_auto_id}"></a></td>
+        <!--<td th:text="${elem.id_client_id}"></td>-->
+        <td><a th:href="'/user/client/list'" th:text="${elem.id_client_id}"></a></td>
+        <td th:text="${elem.first_name}"></td>
+        <td th:text="${elem.second_name}"></td>
+        <td th:text="${elem.patronymic}"></td>
+        <td th:text="${elem.phone}"></td>
+        <td th:text="${elem.driver_license}"></td>
+        <td th:text="${elem.email}"></td>
+        <td th:text="${elem.series}"></td>
+        <td th:text="${elem.pass_number}"></td>
+        <td th:text="${elem.brand}"></td>
+        <td th:text="${elem.model}"></td>
+        <td th:text="${elem.number}"></td>
+        <td th:text="${elem.experience}">
+
+
+        <td align="center">
+            <form th:action="'/auto/confirm/' + ${elem.id} + '/remove'" method="post">
+                <div class="field"><input type="hidden" name="id_auto_id" th:value="${elem.id_auto_id}"/></div>
+                <button style="vertical-align: middle; width: 20px; height: 20px;" type="submit">✓</button>
+            </form>
+        </td>
+        <!--<td th:if="${elements.state == 0}" th:text="'Не завершено'">-->
+        <!--<td align="center"> <a th:href="'../../auto/' + ${elem.id_auto_id}" th:text="'изменить'"></a></td>-->
+
+
+    </tr>
+    </tbody>
+</table>
+
+<div align="center" style="margin-top: 20px">
+    <button class="button" onclick="location.href='/'" value="Назад">На Главную</button>
+    <button class="button" onclick="location.href='../../catalog'" value="Назад">В Каталог</button>
+    <button class="button" onclick="location.href='../../auto'" value="Назад">Авто</button>
+    <button class="button" onclick="history.back();" value="Назад">Назад</button>
+</div>
+</body>
+</html>

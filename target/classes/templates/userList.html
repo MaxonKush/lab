@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Юзеры</title>
+
+    <link rel="stylesheet" href="../../main/css/tableStyle.css">
+</head>
+<body>
+<table width="100%" border="1" cellpadding="4" cellspacing="0" style="margin-bottom: 10px">
+    <caption style="margin-bottom: 5px"><b>Таблица клиентов</b></caption>
+    <thead>
+    <tr>
+        <th> Удалить </th>
+        <th> id </th>
+        <th> Активен </th>
+        <th> Никнейм </th>
+        <th> Роль </th>
+        <th> Имя </th>
+        <th> Фамилия </th>
+        <th> Email </th>
+        <th> Ссылка </th>
+    </tr>
+    </thead>
+    <tbody th:each="elem : ${users}" align="center">
+
+    <tr th:if="${#strings.toString(elem.roles) == '[USER]'}">
+
+        <td align="center">
+            <form th:action="'/user/' + ${elem.id} + '/remove'" method="post">
+                <button style="vertical-align: middle; width: 20px; height: 20px;" type="submit">☓</button>
+            </form>
+        </td>
+
+        <td th:text="${elem.id}"></td>
+        <td th:if="${elem.active == 1}" th:text="'true'"></td>
+        <td th:if="${elem.active == 0}" th:text="'false'"></td>
+        <td th:text="${elem.username}"></td>
+        <td th:text="${elem.roles}"></td>
+        <td th:text="${elem.first_name}"></td>
+        <td th:text="${elem.second_name}"></td>
+        <td th:text="${elem.email}"></td>
+        <td> <a th:href="'/user/' + ${elem.id}" th:text="'изменить'"></a></td>
+    </tr>
+    </tbody>
+</table>
+
+
+<table width="100%" border="1" cellpadding="4" cellspacing="0" style="margin-top: 20px">
+    <caption style="margin-bottom: 5px"><b>Таблица персонала</b></caption>
+    <thead>
+    <tr>
+        <th> Удалить </th>
+        <th> id </th>
+        <th> Активен </th>
+        <th> Никнейм </th>
+        <th> Роль </th>
+        <th> Имя </th>
+        <th> Фамилия </th>
+        <th> Email </th>
+        <th> Ссылка </th>
+    </tr>
+    </thead>
+    <tbody th:each="elem : ${users}" align="center">
+
+    <tr th:if="${#strings.toString(elem.roles) == '[STAFF]'}">
+
+        <td align="center">
+            <form th:action="'/user/' + ${elem.id} + '/remove'" method="post">
+                <button style="vertical-align: middle; width: 20px; height: 20px;" type="submit">☓</button>
+            </form>
+        </td>
+
+        <td th:text="${elem.id}"></td>
+        <td th:if="${elem.active == 1}" th:text="'true'"></td>
+        <td th:if="${elem.active == 0}" th:text="'false'"></td>
+        <td th:text="${elem.username}"></td>
+        <td th:text="${elem.roles}"></td>
+        <td th:text="${elem.first_name}"></td>
+        <td th:text="${elem.second_name}"></td>
+        <td th:text="${elem.email}"></td>
+        <td> <a th:href="'/user/' + ${elem.id}" th:text="'изменить'"></a></td>
+    </tr>
+    </tbody>
+</table>
+
+<table width="100%" border="1" cellpadding="4" cellspacing="0" style="margin-top: 20px; margin-bottom: 10px">
+    <caption style="margin-bottom: 5px"><b>Таблица администраторов</b></caption>
+    <thead>
+    <tr>
+        <th> id </th>
+        <th> Никнейм </th>
+        <th> Роль </th>
+        <th> Имя </th>
+        <th> Фамилия </th>
+        <th> Email </th>
+    </tr>
+    </thead>
+    <tbody th:each="elem : ${users}" align="center">
+
+    <tr th:if="${#strings.toString(elem.roles) == '[ADMIN]'}">
+
+        <td th:text="${elem.id}"></td>
+        <!--<td th:text="${elem.active}"></td>-->
+        <td th:text="${elem.username}"></td>
+        <td th:text="${elem.roles}"></td>
+        <td th:text="${elem.first_name}"></td>
+        <td th:text="${elem.second_name}"></td>
+        <td th:text="${elem.email}"></td>
+
+        <!--<td> <a th:href="'/user/' + ${elem.id}" th:text="'изменить'"></a></td>-->
+
+    </tr>
+    </tbody>
+</table>
+
+<div align="center" style="margin-top: 20px">
+    <button class="button" onclick="location.href='/'" value="Назад">На Главную</button>
+    <button class="button" onclick="location.href='../catalog'" value="Назад">В Каталог</button>
+    <button class="button" onclick="location.href='/user/add'" value="Назад">Добавить сотрудника</button>
+    <button class="button" onclick="location.href='../auto'" value="Назад">Авто</button>
+    <button class="button" onclick="location.href='/user/client/list'" value="Назад">Клиенты</button>
+    <button class="button" onclick="history.back();" value="Назад">Назад</button>
+</div>
+</body>
+</html>

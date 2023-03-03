@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8" />
+    <title>Добавление авто</title>
+
+    <link rel="stylesheet" href="../main/css/autoadd.css">
+
+</head>
+<body>
+
+<div>
+
+    <ul>
+        <form class="box" th:action="'/auto/add'" method="post">
+            <h1>Добавление авто</h1>
+
+            <p th:text="${errorNumber}"></p>
+
+            <div class="field"><label>Марка: </label><input autocomplete="off" required placeholder="Марка" type="text" name="brand" list="brandname"/>
+                <datalist id="brandname">
+                    <option value="Audi">
+                    <option value="BMW">
+                    <option value="Citroen">
+                    <option value="Ford">
+                    <option value="Honda">
+                    <option value="Hyundai">
+                    <option value="Infiniti">
+                    <option value="Kia">
+                    <option value="Land Rover">
+                    <option value="Lexus">
+                    <option value="Mazda">
+                    <option value="Mercedes-Benz">
+                    <option value="Mitsubishi">
+                    <option value="Nissan">
+                    <option value="Opel">
+                    <option value="Peugeot">
+                    <option value="Porsche">
+                    <option value="Renault">
+                    <option value="Skoda">
+                    <option value="Toyota">
+                    <option value="Volkswagen">
+                    <option value="Volvo">
+                    <option value="LADA">
+                </datalist>
+            </div>
+            <div class="field"><label>Модель: </label><input required placeholder="Модель" type="text" name="model"/></div>
+            <div class="field"><label>Тип кузова: </label><input required placeholder="Тип кузова" type="text" name="body_type" list="body_typename"/>
+                <datalist id="body_typename">
+                    <option value="Купе">
+                    <option value="Седан">
+                    <option value="Внедорожник">
+                    <option value="Хэтчбек">
+                    <option value="Лифтбек">
+                    <option value="Универсал">
+                    <option value="Кабриолет">
+                </datalist>
+            </div>
+            <div class="field"><label>Цвет: </label><input required placeholder="Цвет" type="text" name="color" list="colorname"/>
+                <datalist id="colorname">
+                    <option value="Серый">
+                    <option value="Красный">
+                    <option value="Белый">
+                    <option value="Чёрный">
+                    <option value="Зелёный">
+                    <option value="Синий">
+                    <option value="Жёлтый">
+                    <option value="Оранжевый">
+                    <option value="Фиолетовый">
+                    <option value="Коричневый">
+                </datalist>
+            </div>
+            <div class="field"><label>Тип КП: </label><input required placeholder="Тип КП" type="text" name="transmission" list="transmissionname"/>
+                <datalist id="transmissionname">
+                    <option value="МКПП">
+                    <option value="АКПП">
+                </datalist>
+            </div>
+            <div class="field"><label>Топливо: </label><input required placeholder="Топливо" type="text" name="fuel" list="fuelname"/>
+                <datalist id="fuelname">
+                    <option value="Бензин">
+                    <option value="Дизель">
+                    <option value="Гибрид">
+                    <option value="Электро">
+                </datalist>
+            </div>
+
+            <!--<div class="field"><label>Фото: </label><input placeholder="Фото" type="hidden" name="photo"/></div>-->
+            <input placeholder="Фото" type="hidden" name="photo"/>
+
+            <div class="field"><label>Номер: </label><input required minlength="7" maxlength="7" placeholder="Номер" type="text" name="number"/></div>
+
+            <div class="field"><label>Объём двигателя (л.): </label><input required min="0" max="20" step="0.1" placeholder="Объём двигателя (л.)" type="number" name="engine"/></div>
+            <div class="field"><label>Расход (на 100 км.): </label><input required min="0" max="100" step="0.1" placeholder="Расход (на 100 км.)" type="number" name="consumption_per_100"/></div>
+            <div class="field"><label>Цена в день (Br): </label><input required min="0" step="0.01" placeholder="Цена в день (Br)" type="number" name="price_per_day"/></div>
+            <div class="field"><label>Кол-во мест: </label><input required min="0" max="7" placeholder="Кол-во мест" type="number" name="places"/></div>
+            <div class="field"><label>Запас хода (км.): </label><input required min="0" max="2000" placeholder="Запас хода (км.)" type="number" name="reserve"/></div>
+            <div class="field"><label>Мощность (л.с.): </label><input required min="0" max="1000" placeholder="Мощность (л.с.)" type="number" name="power"/></div>
+            <div class="field"><label>Багажник (л.): </label><input required min="0" max="1000" placeholder="Багажник (л.)" type="number" name="capacity"/></div>
+            <div class="field"><label>Доступна: </label><input required min="0" max="1"  placeholder="Доступна" type="number" name="state"/></div>
+
+            <div><input type="submit" value="Сохранить"></div>
+            <li class="my"><input type="button" onclick="history.back();" value="Назад"/></li>
+
+        </form>
+    </ul>
+</div>
+</div>
+
+</body>
+</html>

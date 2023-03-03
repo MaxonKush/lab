@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" />
+    <title>Сервис</title>
+    <link rel="stylesheet" href="../../main/css/usersinglestyle.css">
+</head>
+<body>
+    <form autocomplete="off" th:each="elem : ${auto}" class="box" th:action="${'/auto/service/' + elem.id}" method="post">
+        <h1>Отправить авто в сервис</h1>
+
+        <!--<p th:text="${errorUsername}"></p>
+        <p th:text="${errorEmail}"></p>-->
+
+        <div>
+            <h4 th:text="${'id авто: ' + elem.id + ' (' + elem.brand + ', ' + elem.number + ')'}"></h4>
+
+            <input required placeholder="id авто" type="hidden" name="id_auto_id" list="test" th:value="${elem.id}"/>
+            <datalist id="test">
+                <option th:each="elems : ${autos}" th:value="${elems.id}" th:text="${elems.id} + ' - ' + ${elems.brand} + ', ' + ${elems.number}">
+            </datalist>
+        </div>
+
+        <div><input autocomplete="off" placeholder="id ДТП" type="text" name="id_road_accident_id" list="ra"/>
+            <datalist id="ra">
+                <option th:each="elems : ${road_accident}" th:if="${elem.id} == ${elems.id_auto_id}" th:value="${elems.id}"
+
+                        th:text="${elems.id_auto_id} + ' (' + ${elems.defect} + ') - ' + ${elem.brand} + ', ' + ${elem.number} +
+                        ', ' + ${elems.date_road_accident}">
+            </datalist>
+        </div>
+
+        <div><input placeholder="Дата начала" type="hidden" name="date_of_start"/></div>
+        <div><input placeholder="Дата окончания" type="hidden" name="date_of_end"/></div>
+        <div><input placeholder="Комментарий" type="hidden" name="repair_description"/></div>
+
+        <div><input required type="submit" value="Добавить в БД"/></div>
+        <div><input required type="button" onclick="history.back();" value="Назад"/></div>
+
+    </form>
+
+</body>
+</html>

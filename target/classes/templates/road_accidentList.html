@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Список ДТП</title>
+
+    <link rel="stylesheet" href="../../main/css/tableStyle.css">
+</head>
+<body>
+<table width="100%" border="1" cellpadding="4" cellspacing="0" style="margin-bottom: 10px">
+    <caption style="margin-bottom: 5px"><b>Таблица ДТП</b></caption>
+    <thead>
+    <tr>
+        <!--<th> Удалить </th>-->
+        <th> id </th>
+        <th> auto_id </th>
+        <th> Дефект </th>
+        <th> Дата ДТП </th>
+        <th> Сервис </th>
+    </tr>
+    </thead>
+    <tbody th:each="elem : ${road_accident}" align="center">
+
+    <!--<tr th:if="${#strings.toString(elem.roles) == '[STAFF]'}">-->
+    <tr>
+
+        <!--<td align="center">
+            <form th:action="'/user/' + ${elem.id} + '/remove'" method="post">
+                <button style="vertical-align: middle; width: 20px; height: 20px;" type="submit">☓</button>
+            </form>
+        </td>-->
+
+        <td th:text="${elem.id}"></td>
+        <td><a th:href="'/auto/' + ${elem.id_auto_id}" th:text="${elem.id_auto_id}"></a></td>
+        <td th:text="${elem.defect}"></td>
+        <td th:text="${elem.date_road_accident}"></td>
+        <td><a th:href="'/auto/service/list'" th:text="'сервис'"></a></td>
+        <!--<td> <a th:href="'/user/' + ${elem.id}" th:text="'изменить'"></a></td>-->
+    </tr>
+    </tbody>
+</table>
+
+<div align="center" style="margin-top: 20px">
+    <button class="button" onclick="location.href='/'" value="Назад">На Главную</button>
+    <button class="button" onclick="location.href='../../catalog'" value="Назад">В Каталог</button>
+    <button class="button" onclick="location.href='../../auto'" value="Назад">Авто</button>
+    <button class="button" onclick="history.back();" value="Назад">Назад</button>
+</div>
+</body>
+</html>

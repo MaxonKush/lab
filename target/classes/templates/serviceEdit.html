@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>Информация</title>
+    <link rel="stylesheet" href="../../../main/css/usersinglestyle.css">
+
+</head>
+<body>
+
+<div>
+
+    <ul>
+        <!--<form class="box" th:action="'/auto/service/edit/' + ${elem.id_auto_id}" method="post">-->
+        <form th:each="elem : ${service}" class="box" th:action="'/auto/service/edit/' + ${elem.id}" method="post">
+
+            <h1>ДТП №<span th:text="${elem.id_road_accident_id}"></span></h1>
+
+            <h4>Авто №<span th:each="elems : ${auto}" th:if="${elem.id_auto_id} == ${elems.id}"
+                            th:text="${elems.id + ' (' + elems.brand + ' ' + elems.number +')'}"></span></h4>
+
+            <h4>Дефект: <span th:each="elements : ${ra}" th:if="${elem.id_road_accident_id} == ${elements.id}"
+                            th:text="${elements.defect}"></span></h4>
+            <!--<li class="my"><input placeholder="Имя пользователя" type="text" name="username"/></li>-->
+
+            <!--<div><input placeholder="Дата начала" type="hidden" name="date_of_start"/></div>
+            <div><input placeholder="Дата окончания" type="hidden" name="date_of_end"/></div>
+            <div><input placeholder="Комментарий" type="hidden" name="repair_description"/></div>-->
+
+
+            <div class="field"><input placeholder="id авто" type="hidden" name="id_auto_id" th:value="${elem.id_auto_id}"/></div>
+
+            <div class="field"><input required placeholder="Дата начала" type="date" name="date_of_start" th:value="${elem.date_of_start}"/></div>
+
+            <div class="field"><input placeholder="Дата окончания" type="date" name="date_of_end" th:value="${elem.date_of_end}"/></div>
+
+            <div class="field"><input placeholder="Комментарий" type="text" name="repair_description" th:value="${elem.repair_description}"/></div>
+
+            <input type="hidden" th:value="${elem.id}" username="userID" name="userId">
+
+            <div>
+                <input type="submit" value="Сохранить">
+                <li class="my"><input type="button" onclick="history.back();" value="Назад"/></li>
+            </div>
+
+        </form>
+    </ul>
+</div>
+
+<!--<div th:each="elem : ${user}" th:unless="${#authentication.getName() == elem.username}">-->
+<!--    <meta http-equiv="refresh" content="0; url=/" />-->
+<!--</div>-->
+
+</body>
+</html>
