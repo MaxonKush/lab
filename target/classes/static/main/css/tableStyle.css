@@ -1,0 +1,107 @@
+/*
+table {
+    border-spacing: 0 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+th {
+    padding: 10px 20px;
+    background: #56433D;
+    color: #F9C941;
+    border-right: 2px solid;
+    font-size: 0.9em;
+}
+th:first-child {
+    text-align: left;
+}
+th:last-child {
+    border-right: none;
+}
+td {
+    vertical-align: middle;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    border-top: 2px solid #56433D;
+    border-bottom: 2px solid #56433D;
+    border-right: 2px solid #56433D;
+}
+td:first-child {
+    border-left: 2px solid #56433D;
+    border-right: none;
+}
+td:nth-child(2){
+    text-align: left;
+}*/
+table {
+    width: 100%;
+    font-family: 'Open Sans', sans-serif;
+}
+/*table {width: 100%; border-collapse: collapse;}*/
+body {
+    /*margin: 0;*/
+    padding: 0;
+    font-family: sans-serif;
+    background: #34495e;
+    background: linear-gradient( rgba(255, 255, 255, 0.8), rgba(0, 0, 0, 0.5) ), url('/main/images/black.jpg');
+    /*background: url('/main/images/black.jpg');*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: top;
+}
+.button{
+    /*style="border: 0;*/
+    background: none;
+    /*display: block;*/
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;"
+}
+.button:hover {
+    background: #2ecc71;
+}
+table thead tr {color: #ffffff; font-weight: bold; background: #2ecc71;}
+table thead tr td {border: 1px solid #01ab73;}
+table tbody tr td {border: 1px solid #e8e9eb;}
+table tbody tr:nth-child(2n) {background: #f4f4f4;}
+table tbody tr:hover {background: #ebffe8;}
+/*
+table {
+    width: 100%;
+    margin-bottom: 20px;
+    border: 5px solid #fff;
+    border-top: 5px solid #fff;
+    border-bottom: 3px solid #fff;
+    border-collapse: collapse;
+    outline: 3px solid #ffd300;
+    font-size: 15px;
+    background: #fff!important;
+}
+table th {
+    font-weight: bold;
+    padding: 7px;
+    background: #ffd300;
+    border: none;
+    text-align: left;
+    font-size: 15px;
+    border-top: 3px solid #fff;
+    border-bottom: 3px solid #ffd300;
+}
+table td {
+    padding: 7px;
+    border: none;
+    border-top: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+    font-size: 15px;
+}
+table tbody tr:nth-child(even){
+    background: #f8f8f8!important;
+}
+*/
