@@ -21,6 +21,6 @@ ENV MYSQL_DATABASE="carbook" \
 
 COPY carbook.sql /docker-entrypoint-initdb.d/
 
-RUN /etc/init.d/mysql start && mysql -u root  -e "CREATE USER $MYSQL_USER@'localhost' IDENTIFIED BY 'global@123';GRANT ALL PRIVILEGES ON *.* TO $MYSQL_USER@'localhost' WITH GRANT OPTION; FLUSH PRIVILEGES;" && mysql -u $MYSQL_USER -p 'global@123' $MYSQL_DATABASE  < /docker-entrypoint-initdb.d/carbook.sql
+RUN /etc/init.d/mysql start && mysql -u root  -e "CREATE USER $MYSQL_USER@'localhost';GRANT ALL PRIVILEGES ON *.* TO $MYSQL_USER@'localhost' WITH GRANT OPTION; FLUSH PRIVILEGES;" && mysql -u $MYSQL_USER $MYSQL_DATABASE  < /docker-entrypoint-initdb.d/carbook.sql
 
 EXPOSE 8080 3306/tcp
