@@ -1,10 +1,10 @@
 FROM openjdk:8
-
-MAINTAINER XYZ
  
-ADD target/demo-0.0.1-SNAPSHOT.jar demo.jar
+ADD demo-0.0.1-SNAPSHOT.jar /app/
 
 CMD ["java", "-jar", "demo.jar"]
+
+WORKDIR /app/
 
 FROM mysql:5.7
 
@@ -14,10 +14,6 @@ ENV MYSQL_DATABASE="carbook" \
     MYSQL_DATA_DIR=/var/lib/mysql \
     MYSQL_RUN_DIR=/run/mysqld \
     MYSQL_LOG_DIR=/var/log/mysql
-   
-    
-    
-#USER root
 
 COPY carbook.sql /docker-entrypoint-initdb.d/
 
