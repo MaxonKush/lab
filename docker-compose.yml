@@ -10,7 +10,7 @@ services:
        MYSQL_USER: root
      ports:
        - 3306:3306
-web:
+   web:
     depends_on:
       - db
     image: tomcat
@@ -20,5 +20,4 @@ web:
       - '8082:8080'
     environment:
       MYSQL_DATABASE: carbook
-      MYSQL_USER: root
-      
+      MYSQL_USER: root      
