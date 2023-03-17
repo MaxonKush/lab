@@ -1,7 +1,7 @@
 version: '3.3'
 services:
    db:
-     image: mysql:5.7
+     image: mysql:8
      volumes:
        - /opt/test:/var/lib/mysql
        - /home/ubuntu/carbook.sql:/docker-entrypoint-initdb.d/carbook.sql
@@ -12,8 +12,8 @@ services:
      ports:
        - 3306:3306
    web:
-    #image: tomcat:9-jdk11
-    image: tomcat:latest
+    image: tomcat:9-jdk11
+    #image: tomcat:latest
     depends_on:
       - db
     volumes:
