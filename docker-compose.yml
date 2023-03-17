@@ -23,4 +23,5 @@ services:
       MYSQL_DATABASE: carbook
      # MYSQL_USER: root
     ports:
-      - 8081:8080
+      - 8080:8080
+      - 8081:8081
