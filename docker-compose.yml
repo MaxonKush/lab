@@ -11,7 +11,7 @@ services:
      ports:
        - 3306:3306
    reverse:
-     image: reverseproxy:v1
+     image: nginx:alpine
      ports: 
        - 80:80
    web:
