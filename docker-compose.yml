@@ -11,7 +11,13 @@ services:
      ports:
        - 3306:3306
    reverse:
-     image: reverseproxy:v1
+     #image: reverseproxy:v1
+     build:
+      # Контекст для сборки образа,
+      # в данном случае, текущая директория
+      context: .
+      # Имя Docker-файла из которого будет собран образ
+      dockerfile: Dockerfile
      ports: 
        - 80:80
    web:
