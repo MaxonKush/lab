@@ -4,7 +4,7 @@ services:
      image: mysql:8
      volumes:
        - /opt/test:/var/lib/mysql
-       - /home/k8s/carbook.sql:/docker-entrypoint-initdb.d/carbook.sql
+       - /home/ubuntu/carbook.sql:/docker-entrypoint-initdb.d/carbook.sql
        #- /home/ubuntu/carbook.sql:/docker-entrypoint-initdb.d/carbook.sql
      environment:
        MYSQL_ROOT_PASSWORD: root
@@ -21,7 +21,7 @@ services:
       - db
     volumes:
       #- /home/ubuntu/target/demo-0.0.1-SNAPSHOT.jar:/usr/local/tomcat/webapps/demo-0.0.1-SNAPSHOT.jar
-      - /home/k8s/target/demo-0.0.1-SNAPSHOT.jar:/usr/local/tomcat/webapps/demo-0.0.1-SNAPSHOT.jar
+      - /home/ubuntu/target/demo-0.0.1-SNAPSHOT.jar:/usr/local/tomcat/webapps/demo-0.0.1-SNAPSHOT.jar
     command: java -jar /usr/local/tomcat/webapps/demo-0.0.1-SNAPSHOT.jar
     environment:
       MYSQL_ROOT_PASSWORD: root
